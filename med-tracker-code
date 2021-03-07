@@ -1,0 +1,153 @@
+//code for website functions 
+
+—————————————————————————————
+//get infomation from check box
+bool isChecked;
+  
+// Get value from check box
+isChecked = ((CButton*)GetDlgItem(IDC_CHECK1))->GetCheck();
+
+ // Set value for check box
+((CButton*)GetDlgItem(IDC_CHECK1))->SetCheck(isChecked);
+
+————————————————————————————— 
+//Getting medication input 
+//Allowing user to indicate every x hours they have to take the medication (x range from 1-12) 
+//storing a 24 spot array linked to every hour of the day and adjusting according to how many days there are in the current month using the Months and MyCalendar class 
+//Medication class creates 24 slot arrays with 0 indicating that they have not taken the pill and 1 indicating that they have, this will be used to determine in what hours the user needs to be reminded to take the medication 
+//Coded in java 
+
+public class Month
+{
+    private String monthName;
+    private int monthDays;
+
+    //Constructor
+    public Month(String month, int days)
+    {
+        monthName = month; 
+        monthDays = days;
+    }
+
+    //Accessor for monthDays
+    public int getMonthDays() {
+        return monthDays;
+    } 
+}
+
+public class MyCalendar
+{
+    private Month[] months;
+
+    public MyCalendar()
+    {
+        //months = new Month[12];
+        months = new Month[]{new Month("January", 31), 
+                           new Month("February", 28), 
+                           new Month("March", 31),
+                           new Month("April", 30),
+                           new Month("May", 31),
+                           new Month("June", 30),
+                           new Month("July", 31),
+                           new Month("August", 31),
+                           new Month("September", 30),
+                           new Month("October", 31),
+                           new Month("November", 30),
+                           new Month("December", 31)};
+    }
+
+    public int getDays(int month) {
+        int monthDays = months[month].getMonthDays();
+        return monthDays;
+    }
+}
+
+import java.util.*;
+import java.time.*;
+
+public class Medication
+{
+    // instance variables - replace the example below with your own
+    private String medName; 
+    private int[] hoursToTake;
+    private MyCalendar calendar;
+    
+    public static final int HOURS_DAY = 24; 
+    
+    public Medication(String name) {
+        medName = name; 
+        calendar = new MyCalendar();
+        hoursToTake = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        
+    }
+        public void keepTrack() {
+        LocalDate today = LocalDate.now();
+        int month = today.getMonthValue();
+        
+        int monthDays = calendar.getDays(month-1);
+        
+        int userHours = askUser(); //this will be checkbox input 
+        int counter = 0;
+        while (counter < monthDays) {
+	numHours = 12 
+	for (int y = 1; y <= numHours; y++){
+                for (int i = 0; i < HOURS_DAY; i+=y) {
+                    hoursToTake[i]= 1;
+                }
+	}
+        }
+}
+
+—————————————————————————————
+//Send alerts using email to phone number when there is a 1 is the hoursToTake array 
+//pip install smtplib
+//pip install EmailMessage
+
+import smtplib
+from email.message import EmailMessage
+
+def email_alert(subject, body, to):
+    message = EmailMessage()
+    message.set_content(body)
+    message['subject'] = subject
+    message['to'] = to
+
+    #have to use correct actual gmail addresses and password
+    user = "email_alert@gmail.com"
+    message['from'] = user
+    password = "abcdefg"
+
+    server = smtp.SMTP("smtp.gmail.com,587") #email server
+    server.starttls() #setting gmails requires
+    server.login(user, password)
+    server.send_message(message)
+
+    server.quit()
+
+if__name__=='__main__': #if this is the main then run it
+    email_alert("subjectchosen", "reminder(body)", "10digitsnumber@carrieremail")
+—————————————————————————————
+// checking if phone number input is valid (10 digits):
+//function to see if phone number is valid
+bool phonenumbervalid(int input){ 
+    //get the size of phone number 
+    bool valid = true;
+    int temp = input;
+    int count = 0;
+    while (temp != 0){
+        temp %= 10;
+        count++;
+    }
+ 
+    //american phone number 
+    if(count != 10 || count != ){
+        valid = false;
+        return valid;
+    }
+    else{
+        return valid;
+    }
+}
+
+
+

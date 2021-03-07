@@ -1,7 +1,8 @@
 body {
-	margin:0;
+	margin:1px;
 	background-color: lavender;
 	font-family: 'Architects Daughter', cursive;
+
 	text-align: center;
 }
 #capsules {
